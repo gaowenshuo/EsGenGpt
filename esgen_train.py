@@ -28,20 +28,20 @@ def train_w2vec(filename="data.txt" , filename_split="split_data.txt" , embeddin
     word_to_index（model算出来）：从字找到index
     index_to_word（model算出来）：从字找到index
     后三者存入w2v.pkl
-    返回原始数据(每50个字切)，[w1，word_to_index，index_to_word]
+    返回原始数据(每500个字切)，[w1，word_to_index，index_to_word]
     """
     split_data ()
     raw_data = open ( filename , "r" , encoding="utf-8" ).read ().split ( "\n" )
     raw_data = [ line for line in raw_data if line.strip () ]  # 去掉空行
     raw_data = "。".join ( raw_data )
     raw_data = raw_data.replace ( " " , "" )
-    raw_data_length = len ( raw_data ) // 50
+    raw_data_length = len ( raw_data ) // 50 - 1
     filled_data = [ ]
     for i in range ( raw_data_length ):
         filled_data.append ( raw_data[ 50 * i: 50 * (i + 1) ] )
     raw_data_split = open ( filename_split , "r" , encoding="utf-8" ).read ().split ( "\n" )
-#    if os.path.exists ( "w2v.pkl" ):
-#        return filled_data , pickle.load ( open ( "w2v.pkl" , "rb" ) )
+    #    if os.path.exists ( "w2v.pkl" ):
+    #        return filled_data , pickle.load ( open ( "w2v.pkl" , "rb" ) )
     model = Word2Vec ( raw_data_split , vector_size=embedding_size , min_count=1 )
     pickle.dump ( (model.syn1neg , model.wv.key_to_index , model.wv.index_to_key) , open ( "w2v.pkl" , "wb" ) )
     return filled_data , (model.syn1neg , model.wv.key_to_index , model.wv.index_to_key)
@@ -95,20 +95,20 @@ class EsGenRnnModel ( nn.Module ):
         self.cross_entropy = nn.CrossEntropyLoss ()
 
     def forward(self , xs_embedded , h0=None , c0=None):
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        xs_embedded = xs_embedded.to(device)
+        device = "cuda" if torch.cuda.is_available () else "cpu"
+        xs_embedded = xs_embedded.to ( device )
         if h0 is None or c0 is None:
             # h0和c0的形状：num_layers，batch_size，hidden_size
             h0 = torch.tensor (
                 np.zeros ( (self.num_layers , xs_embedded.shape[ 0 ] , self.hidden_size) , np.float32 ) )
             c0 = torch.tensor (
                 np.zeros ( (self.num_layers , xs_embedded.shape[ 0 ] , self.hidden_size) , np.float32 ) )
-            h0 = h0.to(device)
-            c0 = c0.to(device)
-        # x_embedded 的形状：（batch，length，embedded_size，即32x49x256）
+            h0 = h0.to ( device )
+            c0 = c0.to ( device )
+        # x_embedded 的形状：（batch，length，embedded_size，即8x49x256）
         hidden , (hn , cn) = self.lstm ( xs_embedded , (h0 , c0) )
         hidden = self.dropout ( hidden )
-        # hidden 的形状：（batch，length，hidden_size，即32x49x64）
+        # hidden 的形状：（batch，length，hidden_size，即8x49x64）
         flatten = self.flatten ( hidden )
         # flatten 的形状：（batch x length，hidden_size，即1568x64）
         predict = self.linear ( flatten )
@@ -116,17 +116,17 @@ class EsGenRnnModel ( nn.Module ):
         return predict , (hn , cn)
 
 
-def generator(pred_length=100):
+def generator(pred_length=50):
     result = ""
     word_index = np.random.randint ( 0 , word_size , 1 )[ 0 ]
     result += index_to_word[ word_index ]
-    h0 = torch.tensor(np.zeros((2,1,model.hidden_size),np.float32))
-    c0 = torch.tensor(np.zeros((2,1,model.hidden_size),np.float32))
-    h0 = h0.to(device)
-    c0 = c0.to(device)
+    h0 = torch.tensor ( np.zeros ( (2 , 1 , model.hidden_size) , np.float32 ) )
+    c0 = torch.tensor ( np.zeros ( (2 , 1 , model.hidden_size) , np.float32 ) )
+    h0 = h0.to ( device )
+    c0 = c0.to ( device )
     for i in range ( pred_length ):
-        word_embedded = w1[ word_index ].reshape(1,1,-1)
-        word_embedded = torch.tensor(word_embedded)
+        word_embedded = w1[ word_index ].reshape ( 1 , 1 , -1 )
+        word_embedded = torch.tensor ( word_embedded )
         prediction , (h0 , c0) = model ( word_embedded , h0 , c0 )
         word_index = int ( torch.argmax ( prediction ) )
         word = index_to_word[ word_index ]
@@ -135,24 +135,25 @@ def generator(pred_length=100):
 
 
 if __name__ == '__main__':
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cuda" if torch.cuda.is_available () else "cpu"
     filled_data , (w1 , word_to_index , index_to_word) = train_w2vec ()
     dataset = DataProcess ( data_sheet=filled_data , w1=w1 , word_to_index=word_to_index )
-    dataloader = DataLoader ( dataset , batch_size=32 , shuffle=False )  # 能帮我们按照batch数打包
+    batch_size = 8
+    dataloader = DataLoader ( dataset , batch_size=batch_size , shuffle=False )  # 能帮我们按照batch数打包
     word_size , embedding_size = w1.shape
 
     model = EsGenRnnModel ( embedding_size=embedding_size , word_size=word_size , hidden_size=64 )
-    model = model.to(device)
+    model = model.to ( device )
     lr = 0.01
     epochs = 200
     optimizer = torch.optim.Adam ( model.parameters () , lr )
 
     for epoch in range ( epochs ):
-        print(f'epoch:{epoch}')
+        print ( f'epoch:{epoch}' )
         for batch_index , (xs_embedding , ys_index) in enumerate ( dataloader ):
-            xs_embedding = xs_embedding.to(device)
-            ys_index = ys_index.to(device)
-            predict , _ = model.forward ( xs_embedding )
+            xs_embedding = xs_embedding.to ( device )
+            ys_index = ys_index.to ( device )
+            predict , (h0 , c0) = model.forward ( xs_embedding )
             loss = model.cross_entropy ( predict , ys_index.reshape ( -1 ) )
             loss.backward ()
             optimizer.step ()

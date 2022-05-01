@@ -131,6 +131,7 @@ def generator(pred_length=50):
         word_index = int ( torch.argmax ( prediction ) )
         word = index_to_word[ word_index ]
         result += word
+    result = result.replace("X","北京大学")
     print ( result )
 
 
@@ -145,7 +146,7 @@ if __name__ == '__main__':
     model = EsGenRnnModel ( embedding_size=embedding_size , word_size=word_size , hidden_size=64 )
     model = model.to ( device )
     lr = 0.01
-    epochs = 200
+    epochs = 1000
     optimizer = torch.optim.Adam ( model.parameters () , lr )
 
     for epoch in range ( epochs ):

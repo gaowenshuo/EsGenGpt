@@ -15,10 +15,10 @@ class Params:
         self.device = "cuda" if torch.cuda.is_available () else "cpu"
         self.embedded_size = 256  # 每一个字从w2v算出来是[1 , embedded_size]向量
         self.word_size = 0  # w1算出来
-        self.cut_size = 50  # 训练文段的长度
+        self.cut_size = 500  # 训练文段的长度
         self.batch_size = 32  # batch大小
         self.hidden_size = 128  # 中间层大小
-        self.epochs = 1000  # 学习次数
+        self.epochs = 500  # 学习次数
         self.lr = 0.1  # 学习率
 
 
@@ -135,7 +135,6 @@ def generator(length , starts):
         word_index = int ( torch.argmax ( prediction ) )
         word = index_to_word[ word_index ]
         result += word
-    result = result.replace ( "X" , starts )
     print ( result )
 
 
@@ -166,5 +165,4 @@ if __name__ == '__main__':
             optimizer.zero_grad ()
         print ( f'loss:{loss:.3f}' )
         generator ( 50 , "北京大学" )
-        torch.save ( model , 'model.pth' )
-        torch.save ( model.state_dict () , 'model_params.pth' )
+    torch.save ( model , 'model.pth' )

@@ -120,10 +120,14 @@ def generator(length , starts):
     h = h.to ( params.device )
     result = ""
     result += starts
-    if starts[ len ( starts ) - 1 ] in word_to_index.keys ():
-        word_index = word_to_index[ starts[ len ( starts ) - 1 ] ]
-    else:
-        word_index = word_to_index[ "。" ]
+    word_index = word_to_index[ "。" ]
+    # 预热
+    for prefix in starts:
+        if prefix in word_to_index.keys():
+            word_index = word_to_index[prefix]
+            word_embedded = w1[ word_index ].reshape ( 1 , 1 , -1 )
+            word_embedded = torch.tensor ( word_embedded )
+            prediction , h = model ( word_embedded , h )
     for i in range ( length ):
         word_embedded = w1[ word_index ].reshape ( 1 , 1 , -1 )
         word_embedded = torch.tensor ( word_embedded )

@@ -11,10 +11,10 @@ class Params:
         self.device = "cuda" if torch.cuda.is_available () else "cpu"
         self.embedded_size = 256  # 每一个字从w2v算出来是[1 , embedded_size]向量
         self.word_size = 0  # w1算出来
-        self.cut_size = 50  # 训练文段的长度
+        self.cut_size = 500  # 训练文段的长度
         self.batch_size = 32  # batch大小
         self.hidden_size = 128  # 中间层大小
-        self.epochs = 1000  # 学习次数
+        self.epochs = 500  # 学习次数
         self.lr = 0.1  # 学习率
 
 
@@ -53,8 +53,8 @@ def generator(length , starts):
     word_index = word_to_index[ "。" ]
     # 预热
     for prefix in starts:
-        if prefix in word_to_index.keys():
-            word_index = word_to_index[prefix]
+        if prefix in word_to_index.keys ():
+            word_index = word_to_index[ prefix ]
             word_embedded = w1[ word_index ].reshape ( 1 , 1 , -1 )
             word_embedded = torch.tensor ( word_embedded )
             prediction , h = model ( word_embedded , h )
@@ -65,14 +65,12 @@ def generator(length , starts):
         word_index = int ( torch.argmax ( prediction ) )
         word = index_to_word[ word_index ]
         result += word
-    result = result.replace ( "X" , starts )
     print ( result )
 
 
 if __name__ == '__main__':
     params = Params ()
     model = torch.load ( 'model.pth' , map_location=params.device )
-    model.load_state_dict ( torch.load ( 'model_params.pth' , map_location=params.device ) )
     w1 , word_to_index , index_to_word = pickle.load ( open ( "w2v.pkl" , "rb" ) )
     while True:
         starts = input ( "请输入主题：" )

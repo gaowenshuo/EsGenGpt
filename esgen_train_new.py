@@ -12,6 +12,7 @@ class Params:
     def __init__(self):
         self.filename = "data.txt"  # 源文件
         self.w2v_filename = "w2v.pkl"  # w2v文件
+        self.model_filename = 'model.pth'  # 模型存储位置
         self.device = "cuda" if torch.cuda.is_available () else "cpu"
         self.embedded_size = 256  # 每一个字从w2v算出来是[1 , embedded_size]向量
         self.word_size = 0  # w1算出来
@@ -123,8 +124,8 @@ def generator(length , starts):
     word_index = word_to_index[ "。" ]
     # 预热
     for prefix in starts:
-        if prefix in word_to_index.keys():
-            word_index = word_to_index[prefix]
+        if prefix in word_to_index.keys ():
+            word_index = word_to_index[ prefix ]
             word_embedded = w1[ word_index ].reshape ( 1 , 1 , -1 )
             word_embedded = torch.tensor ( word_embedded )
             prediction , h = model ( word_embedded , h )
@@ -165,4 +166,4 @@ if __name__ == '__main__':
             optimizer.zero_grad ()
         print ( f'loss:{loss:.3f}' )
         generator ( 50 , "北京大学" )
-    torch.save ( model , 'model.pth' )
+    torch.save ( model , params.model_filename )

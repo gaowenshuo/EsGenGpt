@@ -8,6 +8,7 @@ class Params:
     def __init__(self):
         self.filename = "data.txt"  # 源文件
         self.w2v_filename = "w2v.pkl"  # w2v文件
+        self.model_filename = 'model.pth'  # 模型存储位置
         self.device = "cuda" if torch.cuda.is_available () else "cpu"
         self.embedded_size = 256  # 每一个字从w2v算出来是[1 , embedded_size]向量
         self.word_size = 0  # w1算出来
@@ -70,7 +71,7 @@ def generator(length , starts):
 
 if __name__ == '__main__':
     params = Params ()
-    model = torch.load ( 'model.pth' , map_location=params.device )
+    model = torch.load ( params.model_filename , map_location=params.device )
     w1 , word_to_index , index_to_word = pickle.load ( open ( "w2v.pkl" , "rb" ) )
     while True:
         starts = input ( "请输入主题：" )

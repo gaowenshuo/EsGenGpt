@@ -1,16 +1,8 @@
 import torch
 from mingpt.char_dataset import CharDataset
-from mingpt.model import GPT , GPTConfig
-from mingpt.trainer import Trainer , TrainerConfig
 from mingpt.utils import sample
 
 if __name__ == '__main__':
-    # 配置log
-    logging.basicConfig (
-        format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s" ,
-        datefmt="%m/%d/%Y %H:%M:%S" ,
-        level=logging.INFO ,
-    )
     # 配置dataset
     block_size = 128
     text = open ( 'data.txt' , 'r' , encoding="utf-8" ).read ()

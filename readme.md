@@ -20,7 +20,8 @@
 #### 需要文件：
 ~~- data.txt，~~
 ~~- EsGenGpt_predict.py，~~
-> ~~按顺序运行两个py即可~~  
+> ~~按顺序运行两个py即可~~ 
+
 *2022.5.17更新:因加入GUI,原来的指南不再适用*
 - data(cleaned).txt
 - EsGenGpt_train.py

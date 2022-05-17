@@ -1,14 +1,15 @@
-EsGenLstm:基于Word2Vec和GRU的申论文章生成器
-EsGenGpt:基于注意力机制和GPT2的申论文章生成器
+# EsGenLstm:基于Word2Vec和GRU的申论文章生成器
+# EsGenGpt:基于注意力机制和GPT2的申论文章生成器
 
-使用指南：
-需要文件：
-data.txt，
-EsGenGpt_train.py，
-EsGenGpt_predict.py，
-按顺序运行两个py即可
+## 使用指南：
+#### 需要文件：
+- data.txt，
+- EsGenGpt_train.py，
+- EsGenGpt_predict.py，
+> 按顺序运行两个py即可
 
-生成示例：开头：解决农村人口贫困问题，必须精准扶贫
+## 生成示例：
+**开头**：解决农村人口贫困问题，必须精准扶贫
 
 
 解决农村人口贫困问题，必须精准扶贫的核心之一。乡村振兴只有通过完善质量、补助，才能最终提高农村的产业水平。

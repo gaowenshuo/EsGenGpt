@@ -10,6 +10,8 @@
 - `ui_test.py`qt for python 的ui文件
 - `dataproducer.py` 用于爬取申论生成器的脚本
 - `datacleaner.py` 用于清洗data所用的脚本
+- `model.pth` 利用data(cleaned).txt训练好的模型
+  > *因过于庞大,放在北大网盘中:https://disk.pku.edu.cn:443/link/36D4CC02834273C6B0A60BCCED58A5F1 有效期限：2025-06-30 23:59*
 
 > **使用库:**  
 > `pyside6`: qt官方推出的python图形库  
@@ -22,11 +24,12 @@
 ~~- EsGenGpt_predict.py，~~
 > ~~按顺序运行两个py即可~~ 
 
-*2022.5.17更新:因加入GUI,原来的指南不再适用*
+> *2022.5.17更新:因加入GUI,原来的指南不再适用*
 - data(cleaned).txt
 - EsGenGpt_train.py
 - begin.py
 > 先训练EsGenGpt_train.py,然后运行begin.py即可
+> 如果下载了model.pth并放在同文件夹下可直接begin.py
 
 ## 生成示例：
 **开头**：解决农村人口贫困问题，必须精准扶贫

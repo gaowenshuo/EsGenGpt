@@ -12,15 +12,15 @@
 - `datacleaner.py` 用于清洗data所用的脚本
 
 > **使用库:**
-> `pyside6`: qt官方推出的python图形库
-> `playwright`: 用于producer爬取申论生成器文章
-> `beautifulsoup`: 用于解析爬取的html提取文章
+> `pyside6`: qt官方推出的python图形库  
+> `playwright`: 用于producer爬取申论生成器文章  
+> `beautifulsoup`: 用于解析爬取的html提取文章  
 
 ## 使用指南：
 #### 需要文件：
 ~~- data.txt，~~
 ~~- EsGenGpt_predict.py，~~
-> ~~按顺序运行两个py即可~~
+> ~~按顺序运行两个py即可~~  
 *2022.5.17更新:因加入GUI,原来的指南不再适用*
 - data(cleaned).txt
 - EsGenGpt_train.py

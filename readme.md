@@ -11,7 +11,7 @@
 - `dataproducer.py` 用于爬取申论生成器的脚本
 - `datacleaner.py` 用于清洗data所用的脚本
 
-> **使用库:**
+> **使用库:**  
 > `pyside6`: qt官方推出的python图形库  
 > `playwright`: 用于producer爬取申论生成器文章  
 > `beautifulsoup`: 用于解析爬取的html提取文章  

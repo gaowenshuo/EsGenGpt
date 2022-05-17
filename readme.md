@@ -11,7 +11,7 @@
 - `dataproducer.py` 用于爬取申论生成器的脚本
 - `datacleaner.py` 用于清洗data所用的脚本
 - `model.pth` 利用data(cleaned).txt训练好的模型
-  > *因过于庞大,放在北大网盘中:https://disk.pku.edu.cn:443/link/36D4CC02834273C6B0A60BCCED58A5F1 有效期限：2025-06-30 23:59*
+  > *因过于庞大,放在[北大网盘](https://disk.pku.edu.cn:443/link/36D4CC02834273C6B0A60BCCED58A5F1"绝对不会限速的哦,多良心啊(doge)")中. 有效期限：2025-06-30 23:59*
 
 > **使用库:**  
 > `pyside6`: qt官方推出的python图形库  

@@ -11,9 +11,14 @@
 - `dataproducer.py` 用于爬取申论生成器的脚本
 - `datacleaner.py` 用于清洗data所用的脚本
 - `model.pth` 利用data(cleaned).txt训练好的模型
-  > *因过于庞大,放在[北大网盘](https://disk.pku.edu.cn:443/link/36D4CC02834273C6B0A60BCCED58A5F1 "绝对不会限速的哦,多良心啊(doge)")中. 有效期限：2025-06-30 23:59*
+
+  > (5.22更新)
+  >  *因过于庞大,放在[北大网盘](https://disk.pku.edu.cn:443/link/36D4CC02834273C6B0A60BCCED58A5F1 "绝对不会限速的哦,多良心啊(doge)")中. 有效期限：2025-06-30 23:59* 
+  > 后续会考虑用lfs上传
+
 
 > **使用库:**  
+> `pytorch`: 深度学习框架
 > `pyside6`: qt官方推出的python图形库  
 > `playwright`: 用于producer爬取申论生成器文章  
 > `beautifulsoup`: 用于解析爬取的html提取文章  
@@ -30,6 +35,7 @@
 - begin.py
 > 先训练EsGenGpt_train.py,然后运行begin.py即可
 > 如果下载了model.pth并放在同文件夹下可直接begin.py
+> 如果选择模型,从predict文件中修改model,然后运行.
 
 ## 生成示例：
 **开头**：解决农村人口贫困问题，必须精准扶贫

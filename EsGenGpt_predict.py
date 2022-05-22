@@ -5,11 +5,11 @@ from mingpt.utils import sample
 if __name__ == '__main__':
     # 配置dataset
     block_size = 128
-    text = open ( 'data.txt' , 'r' , encoding="utf-8" ).read ()
+    text = open ( 'data(cleaned).txt' , 'r' , encoding="utf-8" ).read ()
     train_dataset = CharDataset ( text , block_size )
     # 读取模型
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = torch.load ( "model.pth" , map_location=device )
+    model = torch.load ( "model(new).pth" , map_location=device )
     context = input("请输入第一句话：")
     length = input("请输入生成长度：")
     try:

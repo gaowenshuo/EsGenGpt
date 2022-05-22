@@ -18,7 +18,7 @@
 
 
 > **使用库:**  
-> `pytorch`: 深度学习框架
+> `pytorch`: 深度学习框架  
 > `pyside6`: qt官方推出的python图形库  
 > `playwright`: 用于producer爬取申论生成器文章  
 > `beautifulsoup`: 用于解析爬取的html提取文章  

@@ -13,7 +13,7 @@
 - `model.pth` 利用data(cleaned).txt训练好的模型
 
   > (5.22更新)
-  >  *因过于庞大,放在[北大网盘](https://disk.pku.edu.cn:443/link/36D4CC02834273C6B0A60BCCED58A5F1 "绝对不会限速的哦,多良心啊(doge)")中. 有效期限：2025-06-30 23:59* 
+  >  *因过于庞大,放在[北大网盘](https://disk.pku.edu.cn:443/link/B670CA63A9C9AA71486CDEA54BA1452B "绝对不会限速的哦,多良心啊(doge)")中. 有效期限：2025-06-30 23:59*   
   > 后续会考虑用lfs上传
 
 

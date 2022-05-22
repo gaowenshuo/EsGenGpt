@@ -29,13 +29,13 @@
 ~~- EsGenGpt_predict.py，~~
 > ~~按顺序运行两个py即可~~ 
 
-> *2022.5.17更新:因加入GUI,原来的指南不再适用*
-- data(cleaned).txt
-- EsGenGpt_train.py
-- begin.py
-> 先训练EsGenGpt_train.py,然后运行begin.py即可
-> 如果下载了model.pth并放在同文件夹下可直接begin.py
-> 如果选择模型,从predict文件中修改model,然后运行.
+> *2022.5.17更新:因加入GUI,原来的指南不再适用*  
+- data(cleaned).txt  
+- EsGenGpt_train.py  
+- begin.py  
+> 先训练EsGenGpt_train.py,然后运行begin.py即可   
+> 如果下载了model.pth并放在同文件夹下可直接begin.py    
+> 如果选择模型,从predict文件中修改model,然后运行.    
 
 ## 生成示例：
 **开头**：解决农村人口贫困问题，必须精准扶贫
